@@ -1,0 +1,44 @@
+server:
+  port: 8888
+spring:
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  datasource:
+    url: jdbc:mysql://localhost:3306/coupon
+    username: coupon_admin
+    password: password1
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+    database-platform: org.hibernate.dialect.MySQLDialect
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      retries: 10
+      acks: all
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: "Coupon-TimeAttackCouponIssue"
+      auto-offset-reset: earliest
+    topic:
+      coupon-issue: "TimeAttackCouponIssue"
+
+logging:
+  level:
+    org.hibernate.orm.jdbc.bind: trace
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace
