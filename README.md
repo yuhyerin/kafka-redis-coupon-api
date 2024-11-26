@@ -44,3 +44,15 @@ kafka, redis 로컬 실행을 위한 준비
 - `brew services start zookeeper`
 - `brew services start kafka`
 - `brew services start redis`
+
+### Ngrinder 성능 테스트
+ngrinder download : https://github.com/naver/ngrinder/releases 
+(해당 파일은 현 프로젝트 아래 ngrinder 디렉토리에 존재)
+1. `java -Djava.io.tmpdir=${NGRINDER_HOME}/lib -jar nginder-controller-3.5.9-p1.war --port 7070`
+2. `localhost:7070` 접속하여 ID,PW `admin`으로 접속
+3. ngrinder-agent 디렉토리로 이동하여 `./run_agent.sh`로 에이전트 실행
+4. Groovy script 작성하여 테스트를 진행.
+5. 참고
+   - Vuser per agent : 동시에 요청을 날리는 사용자 수
+   - Process/ Thread : 하나의 에이전트에서 생성할 프로세스, 스레드 개수
+   - Run Count : 스레드 당 테스트 코드 수행 횟수
